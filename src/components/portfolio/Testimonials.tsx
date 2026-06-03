@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { testimonials } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 export const Testimonials = () => {
+  const { testimonials } = usePortfolio();
   const [i, setI] = useState(0);
 
   useEffect(() => {
+    if (!testimonials.length) return;
     const t = setInterval(() => setI((p) => (p + 1) % testimonials.length), 6000);
     return () => clearInterval(t);
-  }, []);
+  }, [testimonials.length]);
+
+  if (!testimonials.length) return null;
 
   const t = testimonials[i];
 

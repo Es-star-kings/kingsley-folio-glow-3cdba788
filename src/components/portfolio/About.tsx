@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 import { Code2, Globe, Sparkles, Users } from "lucide-react";
-import { about, personal } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
-const stats = [
-  { icon: Code2, label: "Years coding", value: `${personal.yearsExperience}+` },
-  { icon: Sparkles, label: "Projects shipped", value: `${personal.projectsShipped}+` },
-  { icon: Users, label: "Happy clients", value: `${personal.happyClients}+` },
-  { icon: Globe, label: "Countries served", value: "12+" },
-];
-
 export const About = () => {
+  const { about, personal } = usePortfolio();
+  const stats = [
+    { icon: Code2, label: "Years coding", value: `${personal.yearsExperience}+` },
+    { icon: Sparkles, label: "Projects shipped", value: `${personal.projectsShipped}+` },
+    { icon: Users, label: "Happy clients", value: `${personal.happyClients}+` },
+    { icon: Globe, label: "Countries served", value: "12+" },
+  ];
   return (
     <section id="about" className="py-24 sm:py-32">
       <div className="container">

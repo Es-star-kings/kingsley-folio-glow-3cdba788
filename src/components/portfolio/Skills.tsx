@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { skills } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 export const Skills = () => {
+  const { skills } = usePortfolio();
   return (
     <section id="skills" className="py-24 sm:py-32 relative">
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />

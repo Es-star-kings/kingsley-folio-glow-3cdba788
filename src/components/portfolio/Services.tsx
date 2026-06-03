@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { Code2, Gauge, LayoutDashboard, Paintbrush, Plug, Rocket } from "lucide-react";
-import { services } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 const icons = { Code2, Rocket, LayoutDashboard, Gauge, Plug, Paintbrush } as const;
 
 export const Services = () => {
+  const { services } = usePortfolio();
   return (
     <section id="services" className="py-24 sm:py-32 relative">
       <div aria-hidden className="absolute -z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-[60rem] bg-primary/10 blur-3xl rounded-full" />
