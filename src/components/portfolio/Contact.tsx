@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { personal } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 const schema = z.object({
@@ -15,14 +15,14 @@ const schema = z.object({
   message: z.string().trim().min(10, "Tell me a bit more").max(1500),
 });
 
-const contacts = [
-  { icon: Mail, label: "Email", value: personal.email, href: `mailto:${personal.email}` },
-  { icon: MessageCircle, label: "WhatsApp", value: "Chat with me", href: personal.whatsapp },
-  { icon: Linkedin, label: "LinkedIn", value: "Let's connect", href: personal.linkedin },
-  { icon: Github, label: "GitHub", value: "View my code", href: personal.github },
-];
-
 export const Contact = () => {
+  const { personal } = usePortfolio();
+  const contacts = [
+    { icon: Mail, label: "Email", value: personal.email, href: `mailto:${personal.email}` },
+    { icon: MessageCircle, label: "WhatsApp", value: "Chat with me", href: personal.whatsapp },
+    { icon: Linkedin, label: "LinkedIn", value: "Let's connect", href: personal.linkedin },
+    { icon: Github, label: "GitHub", value: "View my code", href: personal.github },
+  ];
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

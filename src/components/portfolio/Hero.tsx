@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, Github, Linkedin, MessageCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { personal } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import portrait from "@/assets/kingsley-portrait.jpg";
 
 export const Hero = () => {
+  const { personal } = usePortfolio();
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
       {/* Animated background blobs */}

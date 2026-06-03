@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { experience } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 export const Experience = () => {
+  const { experience } = usePortfolio();
   return (
     <section id="experience" className="py-24 sm:py-32">
       <div className="container">

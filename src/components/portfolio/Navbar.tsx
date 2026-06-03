@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Menu, X, Moon, Sun, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { navLinks, personal } from "@/data/portfolio";
+import { navLinks } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
+  const { personal } = usePortfolio();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(true);

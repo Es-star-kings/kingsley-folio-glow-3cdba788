@@ -1,7 +1,10 @@
 import { Heart } from "lucide-react";
-import { navLinks, personal, socialLinks } from "@/data/portfolio";
+import { navLinks, socialLinksFor } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 
 export const Footer = () => {
+  const { personal } = usePortfolio();
+  const socialLinks = socialLinksFor(personal);
   return (
     <footer className="border-t border-border pt-16 pb-8 mt-12">
       <div className="container">

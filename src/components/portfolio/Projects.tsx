@@ -1,23 +1,24 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Github, Star } from "lucide-react";
-import { projects } from "@/data/portfolio";
+import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const Projects = () => {
+  const { projects } = usePortfolio();
   const [filter, setFilter] = useState<string>("All");
 
   const techs = useMemo(() => {
     const set = new Set<string>();
     projects.forEach((p) => p.tech.forEach((t) => set.add(t)));
     return ["All", ...Array.from(set)];
-  }, []);
+  }, [projects]);
 
   const filtered = useMemo(
     () => (filter === "All" ? projects : projects.filter((p) => p.tech.includes(filter))),
-    [filter]
+    [filter, projects]
   );
 
   return (
