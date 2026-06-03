@@ -1,16 +1,51 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navbar } from "@/components/portfolio/Navbar";
+import { Hero } from "@/components/portfolio/Hero";
+import { About } from "@/components/portfolio/About";
+import { Skills } from "@/components/portfolio/Skills";
+import { Projects } from "@/components/portfolio/Projects";
+import { Services } from "@/components/portfolio/Services";
+import { Experience } from "@/components/portfolio/Experience";
+import { Testimonials } from "@/components/portfolio/Testimonials";
+import { Contact } from "@/components/portfolio/Contact";
+import { Footer } from "@/components/portfolio/Footer";
+import { Loader } from "@/components/portfolio/Loader";
+import { useEffect } from "react";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  useEffect(() => {
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Kingsley Okafor",
+      jobTitle: "Frontend Developer",
+      url: typeof window !== "undefined" ? window.location.origin : "",
+      knowsAbout: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Frontend Development"],
+      address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
+    };
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.text = JSON.stringify(data);
+    document.head.appendChild(s);
+    return () => { document.head.removeChild(s); };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <>
+      <Loader />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Services />
+        <Experience />
+        <Testimonials />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
