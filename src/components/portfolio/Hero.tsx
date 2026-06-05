@@ -28,13 +28,13 @@ export const Hero = () => {
             Available for new projects
           </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.05]">
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.05] break-words">
             Hi, I'm <span className="text-gradient">{personal.name}</span>
             <br />
             <span className="text-foreground/90">{personal.title}.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-xl leading-relaxed">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-xl leading-relaxed">
             {personal.tagline} Based in {personal.location} — working with teams worldwide.
           </p>
 
