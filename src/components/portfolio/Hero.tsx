@@ -51,7 +51,7 @@ export const Hero = () => {
             </Button>
           </div>
 
-          <div className="flex items-center gap-6 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
             <div className="flex items-center gap-3">
               {[Github, Linkedin, MessageCircle].map((Icon, i) => (
                 <a
@@ -64,18 +64,18 @@ export const Hero = () => {
                 </a>
               ))}
             </div>
-            <div className="h-8 w-px bg-border" />
-            <div className="flex items-center gap-6 text-sm">
+            <div className="hidden sm:block h-8 w-px bg-border" />
+            <div className="flex items-center gap-5 sm:gap-6 text-sm">
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.yearsExperience}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.yearsExperience}+</div>
                 <div className="text-xs text-muted-foreground mono">years</div>
               </div>
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.projectsShipped}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.projectsShipped}+</div>
                 <div className="text-xs text-muted-foreground mono">projects</div>
               </div>
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.happyClients}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.happyClients}+</div>
                 <div className="text-xs text-muted-foreground mono">clients</div>
               </div>
             </div>
