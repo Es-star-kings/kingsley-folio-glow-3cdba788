@@ -28,13 +28,13 @@ export const Hero = () => {
             Available for new projects
           </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.05]">
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.05] break-words">
             Hi, I'm <span className="text-gradient">{personal.name}</span>
             <br />
             <span className="text-foreground/90">{personal.title}.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-xl leading-relaxed">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-xl leading-relaxed">
             {personal.tagline} Based in {personal.location} — working with teams worldwide.
           </p>
 
@@ -51,7 +51,7 @@ export const Hero = () => {
             </Button>
           </div>
 
-          <div className="flex items-center gap-6 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
             <div className="flex items-center gap-3">
               {[Github, Linkedin, MessageCircle].map((Icon, i) => (
                 <a
@@ -64,18 +64,18 @@ export const Hero = () => {
                 </a>
               ))}
             </div>
-            <div className="h-8 w-px bg-border" />
-            <div className="flex items-center gap-6 text-sm">
+            <div className="hidden sm:block h-8 w-px bg-border" />
+            <div className="flex items-center gap-5 sm:gap-6 text-sm">
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.yearsExperience}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.yearsExperience}+</div>
                 <div className="text-xs text-muted-foreground mono">years</div>
               </div>
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.projectsShipped}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.projectsShipped}+</div>
                 <div className="text-xs text-muted-foreground mono">projects</div>
               </div>
               <div>
-                <div className="font-display text-2xl font-bold text-gradient">{personal.happyClients}+</div>
+                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.happyClients}+</div>
                 <div className="text-xs text-muted-foreground mono">clients</div>
               </div>
             </div>
