@@ -19,7 +19,7 @@ export const SectionHeading = ({ eyebrow, title, description, center }: Props) =
       <span className="h-1.5 w-1.5 rounded-full bg-primary" />
       {eyebrow}
     </div>
-    <h2 className="font-display text-4xl sm:text-5xl font-bold leading-tight">
+    <h2 className="font-display text-3xl sm:text-5xl font-bold leading-tight">
       {title.split(" ").map((w, i, arr) =>
         i === arr.length - 1 ? (
           <span key={i} className="text-gradient">{w}</span>
