@@ -27,7 +27,8 @@ export const Contact = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const result = schema.safeParse({
       name: fd.get("name"),
       email: fd.get("email"),
@@ -38,10 +39,19 @@ export const Contact = () => {
       return;
     }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 900));
+    const { supabase } = await import("@/integrations/supabase/client");
+    const { error } = await supabase.from("contact_messages").insert({
+      name: result.data.name,
+      email: result.data.email,
+      message: result.data.message,
+    });
     setLoading(false);
+    if (error) {
+      toast.error("Couldn't send — try again in a moment");
+      return;
+    }
     toast.success("Message sent! I'll get back to you within 24 hours.");
-    (e.target as HTMLFormElement).reset();
+    form.reset();
   };
 
   return (
