@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase, Github, Linkedin, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, Briefcase, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePortfolio } from "@/context/PortfolioContext";
-import portrait from "@/assets/kingsley-portrait.jpg";
+import { socialLinksFor } from "@/data/portfolio";
 
 export const Hero = () => {
   const { personal } = usePortfolio();
+  const socials = socialLinksFor(personal);
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
       {/* Animated background blobs */}
@@ -53,31 +54,31 @@ export const Hero = () => {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
             <div className="flex items-center gap-3">
-              {[Github, Linkedin, MessageCircle].map((Icon, i) => (
+              {socials.map((s) => (
                 <a
-                  key={i}
-                  href={[personal.github, personal.linkedin, personal.whatsapp][i]}
+                  key={s.label}
+                  href={s.href}
                   className="h-10 w-10 rounded-full glass grid place-items-center text-muted-foreground hover:text-primary hover:shadow-neon transition-all"
-                  aria-label="social"
+                  aria-label={s.label}
                 >
-                  <Icon className="h-4 w-4" />
+                  <s.icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
             <div className="hidden sm:block h-8 w-px bg-border" />
             <div className="flex items-center gap-5 sm:gap-6 text-sm">
-              <div>
-                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.yearsExperience}+</div>
-                <div className="text-xs text-muted-foreground mono">years</div>
-              </div>
-              <div>
-                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.projectsShipped}+</div>
-                <div className="text-xs text-muted-foreground mono">projects</div>
-              </div>
-              <div>
-                <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{personal.happyClients}+</div>
-                <div className="text-xs text-muted-foreground mono">clients</div>
-              </div>
+              {[
+                { v: personal.yearsExperience, l: "years" },
+                { v: personal.projectsShipped, l: "projects" },
+                { v: personal.happyClients, l: "clients" },
+              ]
+                .filter((s) => s.v > 0)
+                .map((s) => (
+                  <div key={s.l}>
+                    <div className="font-display text-xl sm:text-2xl font-bold text-gradient">{s.v}+</div>
+                    <div className="text-xs text-muted-foreground mono">{s.l}</div>
+                  </div>
+                ))}
             </div>
           </div>
         </motion.div>
@@ -90,13 +91,20 @@ export const Hero = () => {
         >
           <div className="absolute -inset-6 bg-gradient-primary opacity-30 blur-3xl rounded-full" aria-hidden />
           <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden neon-border glass animate-float">
-            <img
-              src={portrait}
-              alt={`${personal.fullName}, ${personal.title}`}
-              width={1024}
-              height={1280}
-              className="h-full w-full object-cover"
-            />
+            {personal.avatar ? (
+              <img
+                src={personal.avatar}
+                alt={`${personal.fullName}, ${personal.title}`}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="h-full w-full grid place-items-center bg-gradient-primary/10">
+                <span className="font-display text-7xl font-bold text-gradient">
+                  {(personal.name || "K").charAt(0)}
+                </span>
+              </div>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4 flex items-center justify-between">
               <div>

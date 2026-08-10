@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
-import { Github, Linkedin, Mail, MapPin, MessageCircle, Send } from "lucide-react";
+import { Github, Mail, MapPin, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,9 +20,8 @@ export const Contact = () => {
   const contacts = [
     { icon: Mail, label: "Email", value: personal.email, href: `mailto:${personal.email}` },
     { icon: MessageCircle, label: "WhatsApp", value: "Chat with me", href: personal.whatsapp },
-    { icon: Linkedin, label: "LinkedIn", value: "Let's connect", href: personal.linkedin },
     { icon: Github, label: "GitHub", value: "View my code", href: personal.github },
-  ];
+  ].filter((c) => !!c.href);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

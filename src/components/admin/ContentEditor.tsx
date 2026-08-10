@@ -178,7 +178,6 @@ export const ContentEditor = () => {
           <Field label="Email"><Input type="email" value={p.email ?? ""} onChange={(e) => setPersonal("email", e.target.value)} /></Field>
           <Field label="WhatsApp URL"><Input value={p.whatsapp ?? ""} onChange={(e) => setPersonal("whatsapp", e.target.value)} /></Field>
           <Field label="GitHub URL"><Input value={p.github ?? ""} onChange={(e) => setPersonal("github", e.target.value)} /></Field>
-          <Field label="LinkedIn URL"><Input value={p.linkedin ?? ""} onChange={(e) => setPersonal("linkedin", e.target.value)} /></Field>
           <Field label="Years experience"><Input type="number" value={p.yearsExperience ?? 0} onChange={(e) => setPersonal("yearsExperience", Number(e.target.value))} /></Field>
           <Field label="Projects shipped"><Input type="number" value={p.projectsShipped ?? 0} onChange={(e) => setPersonal("projectsShipped", Number(e.target.value))} /></Field>
           <Field label="Happy clients"><Input type="number" value={p.happyClients ?? 0} onChange={(e) => setPersonal("happyClients", Number(e.target.value))} /></Field>
