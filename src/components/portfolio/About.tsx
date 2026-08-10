@@ -1,22 +1,21 @@
 import { motion } from "framer-motion";
-import { Code2, Globe, Sparkles, Users } from "lucide-react";
+import { Code2, Sparkles, Users } from "lucide-react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 
 export const About = () => {
   const { about, personal } = usePortfolio();
   const stats = [
-    { icon: Code2, label: "Years coding", value: `${personal.yearsExperience}+` },
-    { icon: Sparkles, label: "Projects shipped", value: `${personal.projectsShipped}+` },
-    { icon: Users, label: "Happy clients", value: `${personal.happyClients}+` },
-    { icon: Globe, label: "Countries served", value: "12+" },
-  ];
+    { icon: Code2, label: "Years coding", value: personal.yearsExperience },
+    { icon: Sparkles, label: "Projects shipped", value: personal.projectsShipped },
+    { icon: Users, label: "Happy clients", value: personal.happyClients },
+  ].filter((s) => s.value > 0);
   return (
     <section id="about" className="py-24 sm:py-32">
       <div className="container">
         <SectionHeading eyebrow="About" title="A bit about me" />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className={stats.length ? "grid lg:grid-cols-2 gap-12 items-start" : "grid gap-12 items-start"}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -35,6 +34,7 @@ export const About = () => {
             </ul>
           </motion.div>
 
+          {stats.length > 0 && (
           <div className="grid grid-cols-2 gap-4">
             {stats.map((s, i) => (
               <motion.div
@@ -46,11 +46,12 @@ export const About = () => {
                 className="glass rounded-2xl p-6 hover:shadow-neon transition-all group"
               >
                 <s.icon className="h-6 w-6 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <div className="font-display text-3xl font-bold text-gradient">{s.value}</div>
+                <div className="font-display text-3xl font-bold text-gradient">{s.value}+</div>
                 <div className="text-xs mono text-muted-foreground mt-1 uppercase tracking-wider">{s.label}</div>
               </motion.div>
             ))}
           </div>
+          )}
         </div>
       </div>
     </section>

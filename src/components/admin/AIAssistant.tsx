@@ -14,7 +14,7 @@ const PRESETS = [
   { id: "skill", label: "Skill description", prompt: "Write a one-line professional description for this skill (max 20 words):" },
   { id: "email", label: "Client email", prompt: "Draft a polite, professional email based on this context:" },
   { id: "proposal", label: "Client proposal", prompt: "Write a short client proposal (scope, deliverables, timeline, price placeholder) for:" },
-  { id: "social", label: "Social post", prompt: "Write 3 short LinkedIn/X posts (<280 chars each) about:" },
+  { id: "social", label: "Social post", prompt: "Write 3 short X posts (<280 chars each) about:" },
 ];
 
 export const AIAssistant = () => {
