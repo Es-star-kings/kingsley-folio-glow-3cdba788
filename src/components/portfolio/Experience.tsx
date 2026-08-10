@@ -4,6 +4,7 @@ import { SectionHeading } from "./SectionHeading";
 
 export const Experience = () => {
   const { experience } = usePortfolio();
+  if (!experience.length) return null;
   return (
     <section id="experience" className="py-24 sm:py-32">
       <div className="container">

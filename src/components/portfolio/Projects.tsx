@@ -10,6 +10,7 @@ export const Projects = () => {
   const { projects } = usePortfolio();
   const [filter, setFilter] = useState<string>("All");
 
+
   const techs = useMemo(() => {
     const set = new Set<string>();
     projects.forEach((p) => p.tech.forEach((t) => set.add(t)));
@@ -20,6 +21,8 @@ export const Projects = () => {
     () => (filter === "All" ? projects : projects.filter((p) => p.tech.includes(filter))),
     [filter, projects]
   );
+
+  if (!projects.length) return null;
 
   return (
     <section id="projects" className="py-24 sm:py-32">
