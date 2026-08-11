@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://kingsley-folio-glow.lovable.app/sitemap.xml
