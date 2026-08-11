@@ -9,28 +9,27 @@ import { Testimonials } from "@/components/portfolio/Testimonials";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { Loader } from "@/components/portfolio/Loader";
-import { useEffect } from "react";
+import { Seo } from "@/components/Seo";
 
 const Index = () => {
-  useEffect(() => {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "Kingsley Okafor",
-      jobTitle: "Frontend Developer",
-      url: typeof window !== "undefined" ? window.location.origin : "",
-      knowsAbout: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Frontend Development"],
-      address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
-    };
-    const s = document.createElement("script");
-    s.type = "application/ld+json";
-    s.text = JSON.stringify(data);
-    document.head.appendChild(s);
-    return () => { document.head.removeChild(s); };
-  }, []);
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
 
   return (
     <>
+      <Seo
+        path="/"
+        title="Kingsley — Frontend Developer Portfolio | React, Next.js, TypeScript"
+        description="Kingsley is a Nigeria-based frontend developer building fast, accessible, and beautifully animated web experiences with React, Next.js, and TypeScript."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Kingsley",
+          jobTitle: "Frontend Developer",
+          url: origin,
+          knowsAbout: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Frontend Development"],
+          address: { "@type": "PostalAddress", addressCountry: "NG" },
+        }}
+      />
       <Loader />
       <Navbar />
       <main>
@@ -47,5 +46,6 @@ const Index = () => {
     </>
   );
 };
+
 
 export default Index;
