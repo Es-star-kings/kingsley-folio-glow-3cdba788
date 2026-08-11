@@ -52,7 +52,9 @@ const Admin = () => {
         <Route path="analytics" element={<Analytics />} />
         <Route path="ai" element={<AIAssistant />} />
         <Route path="theme" element={<ThemeEditor />} />
+        <Route path="seo" element={<SeoManager />} />
         <Route path="settings" element={<SettingsEditor />} />
+
       </Route>
     </Routes>
   );
