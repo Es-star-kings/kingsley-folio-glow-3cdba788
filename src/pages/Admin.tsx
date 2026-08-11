@@ -12,6 +12,8 @@ import { Analytics } from "@/components/admin/Analytics";
 import { AIAssistant } from "@/components/admin/AIAssistant";
 import { ThemeEditor } from "@/components/admin/ThemeEditor";
 import { SettingsEditor } from "@/components/admin/SettingsEditor";
+import { SeoManager } from "@/components/admin/SeoManager";
+
 
 const Admin = () => {
   const { loading, user, isAdmin } = useAuth();
