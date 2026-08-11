@@ -19,7 +19,9 @@ const nav = [
   { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/admin/ai", label: "AI Assistant", icon: Sparkles },
   { to: "/admin/theme", label: "Theme", icon: Palette },
+  { to: "/admin/seo", label: "SEO", icon: Search },
   { to: "/admin/settings", label: "Settings", icon: Settings2 },
+
 ];
 
 export const AdminShell = () => {
