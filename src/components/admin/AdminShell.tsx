@@ -1,8 +1,9 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   BarChart3, FileText, Image as ImageIcon, Inbox, LayoutDashboard,
-  LogOut, MessageSquare, Palette, PenTool, Settings2, Sparkles, User, Home
+  LogOut, Palette, PenTool, Search, Settings2, Sparkles, User, Home
 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -18,7 +19,9 @@ const nav = [
   { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/admin/ai", label: "AI Assistant", icon: Sparkles },
   { to: "/admin/theme", label: "Theme", icon: Palette },
+  { to: "/admin/seo", label: "SEO", icon: Search },
   { to: "/admin/settings", label: "Settings", icon: Settings2 },
+
 ];
 
 export const AdminShell = () => {

@@ -15,19 +15,21 @@ export type SeoPage = {
   priority?: string;
 };
 
+// seo_pages is managed via the admin; typed loosely until generated types catch up.
+const seoTable = () => (supabase as any).from("seo_pages");
+
 /** Fetch the stored SEO record for a route (returns null when none is configured). */
 export const useSeoPage = (path: string) => {
   const [page, setPage] = useState<SeoPage | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    supabase
-      .from("seo_pages")
+    seoTable()
       .select("*")
       .eq("path", path)
       .maybeSingle()
-      .then(({ data }) => {
-        if (!cancelled) setPage((data as SeoPage) ?? null);
+      .then(({ data }: { data: SeoPage | null }) => {
+        if (!cancelled) setPage(data ?? null);
       });
     return () => {
       cancelled = true;
@@ -47,7 +49,6 @@ type Props = {
   type?: "website" | "article";
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
-  children?: React.ReactNode;
 };
 
 export const Seo = ({ path, title, description, image, type = "website", noindex, jsonLd }: Props) => {
@@ -66,7 +67,7 @@ export const Seo = ({ path, title, description, image, type = "website", noindex
       <meta name="description" content={finalDesc} />
       {managed?.keywords ? <meta name="keywords" content={managed.keywords} /> : null}
       <link rel="canonical" href={url} />
-      {finalNoindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
+      <meta name="robots" content={finalNoindex ? "noindex, nofollow" : "index, follow"} />
 
       <meta property="og:title" content={finalTitle} />
       <meta property="og:description" content={finalDesc} />
