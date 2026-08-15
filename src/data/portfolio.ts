@@ -33,7 +33,14 @@ export type Project = {
   featured?: boolean;
 };
 
-export type Service = { icon: string; title: string; description: string };
+export type Service = {
+  icon: string;
+  title: string;
+  description: string;
+  price?: string;
+  deliveryTime?: string;
+  features?: string[];
+};
 
 export type ExperienceItem = {
   role: string;

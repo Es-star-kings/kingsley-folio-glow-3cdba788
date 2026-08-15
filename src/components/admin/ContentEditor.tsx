@@ -276,9 +276,12 @@ export const ContentEditor = () => {
                 <Field label="Title"><Input value={sv.title} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, title: e.target.value } : x))} /></Field>
                 <Field label="Description"><Textarea rows={3} value={sv.description ?? ""} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, description: e.target.value } : x))} /></Field>
                 <div className="grid grid-cols-2 gap-2">
-                  <Field label="Price"><Input value={sv.price ?? ""} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, price: e.target.value } : x))} /></Field>
-                  <Field label="Delivery time"><Input value={sv.delivery_time ?? ""} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, delivery_time: e.target.value } : x))} /></Field>
+                  <Field label="Price (e.g. From ₦250,000)"><Input value={sv.price ?? ""} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, price: e.target.value } : x))} /></Field>
+                  <Field label="Delivery time (e.g. 2–3 weeks)"><Input value={sv.delivery_time ?? ""} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, delivery_time: e.target.value } : x))} /></Field>
                 </div>
+                <Field label="What's included (comma separated)">
+                  <Textarea rows={2} value={(sv.features ?? []).join(", ")} onChange={(e) => setServices((r) => r.map((x, ix) => ix === i ? { ...x, features: e.target.value.split(",").map((f: string) => f.trim()).filter(Boolean) } : x))} />
+                </Field>
               </Card>
             ))}
           </div>
