@@ -69,6 +69,9 @@ export const PortfolioProvider = ({ children }: { children: ReactNode }) => {
         icon: sv.icon ?? "Code2",
         title: sv.title,
         description: sv.description ?? "",
+        price: sv.price ?? "",
+        deliveryTime: sv.delivery_time ?? "",
+        features: sv.features ?? [],
       }));
 
       const testimonials = (testiRes.data ?? []).map((t) => ({
