@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { Github, Mail, MapPin, MessageCircle, Send } from "lucide-react";
@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
+import { CONTACT_PREFILL_EVENT } from "@/lib/contact-prefill";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
