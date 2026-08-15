@@ -6,7 +6,7 @@ export const Skills = () => {
   const { skills } = usePortfolio();
   if (!skills.length) return null;
   return (
-    <section id="skills" className="py-24 sm:py-32 relative">
+    <section id="skills" className="py-16 sm:py-24 lg:py-32 relative">
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       <div className="container">
         <SectionHeading

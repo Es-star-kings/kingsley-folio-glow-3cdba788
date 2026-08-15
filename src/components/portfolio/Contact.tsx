@@ -54,7 +54,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 sm:py-32 relative">
+    <section id="contact" className="py-16 sm:py-24 lg:py-32 relative">
       <div aria-hidden className="absolute -z-10 left-0 top-1/3 h-96 w-96 bg-secondary/20 blur-3xl rounded-full" />
       <div className="container">
         <SectionHeading
