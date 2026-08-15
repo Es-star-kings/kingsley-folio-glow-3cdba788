@@ -19,7 +19,7 @@ export const Testimonials = () => {
   const t = testimonials[i];
 
   return (
-    <section id="testimonials" className="py-24 sm:py-32 relative overflow-hidden">
+    <section id="testimonials" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
       <div aria-hidden className="absolute inset-0 -z-10 grid-pattern opacity-30" />
       <div className="container">
         <SectionHeading

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { Github, Mail, MapPin, MessageCircle, Send } from "lucide-react";
@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
+import { CONTACT_PREFILL_EVENT } from "@/lib/contact-prefill";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
@@ -23,6 +24,22 @@ export const Contact = () => {
     { icon: Github, label: "GitHub", value: "View my code", href: personal.github },
   ].filter((c) => !!c.href);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const onPrefill = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      setMessage(detail);
+      setTimeout(() => {
+        messageRef.current?.focus();
+        const len = messageRef.current?.value.length ?? 0;
+        messageRef.current?.setSelectionRange(len, len);
+      }, 600);
+    };
+    window.addEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,10 +68,11 @@ export const Contact = () => {
     }
     toast.success("Message sent! I'll get back to you within 24 hours.");
     form.reset();
+    setMessage("");
   };
 
   return (
-    <section id="contact" className="py-24 sm:py-32 relative">
+    <section id="contact" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
       <div aria-hidden className="absolute -z-10 left-0 top-1/3 h-96 w-96 bg-secondary/20 blur-3xl rounded-full" />
       <div className="container">
         <SectionHeading
@@ -120,7 +138,7 @@ export const Contact = () => {
             </div>
             <div className="space-y-2">
               <label htmlFor="message" className="text-xs mono uppercase tracking-wider text-muted-foreground">Message</label>
-              <Textarea id="message" name="message" placeholder="Tell me about your project, timeline, and budget..." required maxLength={1500} rows={6} className="bg-muted/40 border-border resize-none" />
+              <Textarea ref={messageRef} id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell me about your project, timeline, and budget..." required maxLength={1500} rows={6} className="bg-muted/40 border-border resize-none" />
             </div>
             <Button type="submit" variant="hero" size="lg" disabled={loading} className="w-full">
               {loading ? "Sending..." : <>Send message <Send className="h-4 w-4" /></>}

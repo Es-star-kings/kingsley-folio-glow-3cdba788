@@ -11,7 +11,7 @@ export const About = () => {
     { icon: Users, label: "Happy clients", value: personal.happyClients },
   ].filter((s) => s.value > 0);
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" className="py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="container">
         <SectionHeading eyebrow="About" title="A bit about me" />
 

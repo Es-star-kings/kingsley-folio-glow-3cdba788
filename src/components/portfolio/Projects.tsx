@@ -25,7 +25,7 @@ export const Projects = () => {
   if (!projects.length) return null;
 
   return (
-    <section id="projects" className="py-24 sm:py-32">
+    <section id="projects" className="py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="container">
         <SectionHeading
           eyebrow="Projects"
