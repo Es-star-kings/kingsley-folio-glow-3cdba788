@@ -24,6 +24,22 @@ export const Contact = () => {
     { icon: Github, label: "GitHub", value: "View my code", href: personal.github },
   ].filter((c) => !!c.href);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const onPrefill = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      setMessage(detail);
+      setTimeout(() => {
+        messageRef.current?.focus();
+        const len = messageRef.current?.value.length ?? 0;
+        messageRef.current?.setSelectionRange(len, len);
+      }, 600);
+    };
+    window.addEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
