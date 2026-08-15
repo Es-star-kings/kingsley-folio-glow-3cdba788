@@ -8,18 +8,18 @@ export const Hero = () => {
   const { personal } = usePortfolio();
   const socials = socialLinksFor(personal);
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+    <section id="home" className="relative lg:min-h-screen flex items-center pt-28 pb-14 sm:pb-16 overflow-hidden">
       {/* Animated background blobs */}
       <div aria-hidden className="absolute inset-0 -z-10 grid-pattern" />
       <div aria-hidden className="absolute -z-10 top-20 -left-20 h-[28rem] w-[28rem] rounded-full bg-primary/30 blur-3xl animate-blob" />
       <div aria-hidden className="absolute -z-10 bottom-0 right-0 h-[32rem] w-[32rem] rounded-full bg-secondary/25 blur-3xl animate-blob" style={{ animationDelay: "-8s" }} />
 
-      <div className="container grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
+      <div className="container grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="space-y-8"
+          className="space-y-6 sm:space-y-8"
         >
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs mono">
             <span className="relative flex h-2 w-2">
