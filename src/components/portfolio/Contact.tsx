@@ -137,7 +137,7 @@ export const Contact = () => {
             </div>
             <div className="space-y-2">
               <label htmlFor="message" className="text-xs mono uppercase tracking-wider text-muted-foreground">Message</label>
-              <Textarea id="message" name="message" placeholder="Tell me about your project, timeline, and budget..." required maxLength={1500} rows={6} className="bg-muted/40 border-border resize-none" />
+              <Textarea ref={messageRef} id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell me about your project, timeline, and budget..." required maxLength={1500} rows={6} className="bg-muted/40 border-border resize-none" />
             </div>
             <Button type="submit" variant="hero" size="lg" disabled={loading} className="w-full">
               {loading ? "Sending..." : <>Send message <Send className="h-4 w-4" /></>}
