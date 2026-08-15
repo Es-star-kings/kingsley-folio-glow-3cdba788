@@ -30,7 +30,7 @@ export const Services = () => {
   const current = active !== null ? services[active] : null;
 
   return (
-    <section id="services" className="py-16 sm:py-24 lg:py-32 relative">
+    <section id="services" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
       <div aria-hidden className="absolute -z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-[60rem] bg-primary/10 blur-3xl rounded-full" />
       <div className="container">
         <SectionHeading

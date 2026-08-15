@@ -6,7 +6,7 @@ export const Experience = () => {
   const { experience } = usePortfolio();
   if (!experience.length) return null;
   return (
-    <section id="experience" className="py-16 sm:py-24 lg:py-32">
+    <section id="experience" className="py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="container">
         <SectionHeading
           eyebrow="Experience"
