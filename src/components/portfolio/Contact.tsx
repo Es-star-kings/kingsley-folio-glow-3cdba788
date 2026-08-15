@@ -68,6 +68,7 @@ export const Contact = () => {
     }
     toast.success("Message sent! I'll get back to you within 24 hours.");
     form.reset();
+    setMessage("");
   };
 
   return (
