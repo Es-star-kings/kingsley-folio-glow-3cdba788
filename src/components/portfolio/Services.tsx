@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Code2, Gauge, LayoutDashboard, Paintbrush, Plug, Rocket } from "lucide-react";
+import { ArrowRight, Check, Clock, Code2, Gauge, LayoutDashboard, Paintbrush, Plug, Rocket } from "lucide-react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ import { requestService } from "@/lib/contact-prefill";
 
 const icons = { Code2, Rocket, LayoutDashboard, Gauge, Plug, Paintbrush } as const;
 
-const deliverables = [
+const defaultDeliverables = [
   "Discovery call & clear written scope",
   "Responsive, accessible implementation",
   "Performance & SEO pass before handover",
@@ -59,7 +59,22 @@ export const Services = () => {
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-display text-lg sm:text-xl font-semibold mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.description}</p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  {s.price && (
+                    <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+                      {s.price}
+                    </span>
+                  )}
+                  {s.deliveryTime && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      {s.deliveryTime}
+                    </span>
+                  )}
+                </div>
+
                 <div className="mt-5 sm:mt-6 inline-flex items-center gap-1.5 text-xs mono text-primary">
                   View details <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </div>
@@ -77,8 +92,23 @@ export const Services = () => {
                 <DialogTitle className="font-display text-2xl">{current.title}</DialogTitle>
                 <DialogDescription className="leading-relaxed">{current.description}</DialogDescription>
               </DialogHeader>
+
+              <div className="flex flex-wrap items-center gap-2 my-2">
+                {current.price && (
+                  <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
+                    {current.price}
+                  </span>
+                )}
+                {current.deliveryTime && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+                    <Clock className="h-4 w-4" />
+                    {current.deliveryTime}
+                  </span>
+                )}
+              </div>
+
               <ul className="space-y-2.5 my-2">
-                {deliverables.map((d) => (
+                {(current.features && current.features.length > 0 ? current.features : defaultDeliverables).map((d) => (
                   <li key={d} className="flex items-start gap-2.5 text-sm">
                     <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                     <span className="text-muted-foreground">{d}</span>
