@@ -269,6 +269,20 @@ export const ContentEditor = () => {
           <div className="grid lg:grid-cols-2 gap-4">
             {projects.map((pr, i) => (
               <Card key={pr.id} onRemove={() => { remove("projects", pr.id, pr._new); setProjects((r) => r.filter((_, ix) => ix !== i)); }}>
+                <Field label="Import from live link">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="https://yourproject.com"
+                      value={importUrls[i] ?? ""}
+                      onChange={(e) => setImportUrls((s) => ({ ...s, [i]: e.target.value }))}
+                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); importFromLink(i); } }}
+                    />
+                    <Button type="button" variant="neon" size="sm" disabled={!!importing[i]} onClick={() => importFromLink(i)}>
+                      {importing[i] ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
+                      Import
+                    </Button>
+                  </div>
+                </Field>
                 <Field label="Title"><Input value={pr.title} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, title: e.target.value } : x))} /></Field>
                 <Field label="Slug"><Input value={pr.slug ?? ""} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, slug: e.target.value } : x))} /></Field>
                 <Field label="Short description"><Textarea rows={2} value={pr.description ?? ""} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, description: e.target.value } : x))} /></Field>
