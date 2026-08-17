@@ -8,6 +8,8 @@ import { Seo } from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "./Blog";
+import { PostReactions } from "@/components/blog/PostReactions";
+import { PostComments } from "@/components/blog/PostComments";
 
 type Post = {
   id: string;
@@ -140,6 +142,14 @@ const BlogPost = () => {
               ))}
             </div>
           )}
+
+          <div className="mt-10 pt-6 border-t border-border">
+            <PostReactions postId={post.id} />
+          </div>
+
+          <div className="mt-12">
+            <PostComments postId={post.id} />
+          </div>
         </article>
       </main>
     </>
