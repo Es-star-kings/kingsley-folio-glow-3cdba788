@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   BarChart3, FileText, Image as ImageIcon, Inbox, LayoutDashboard,
-  LogOut, Palette, PenTool, Search, Settings2, Sparkles, User, Home
+  LogOut, MessageCircle, Palette, PenTool, Search, Settings2, Sparkles, User, Home
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ const nav = [
   { to: "/admin/content", label: "Content", icon: PenTool },
   { to: "/admin/inbox", label: "Inbox", icon: Inbox },
   { to: "/admin/blog", label: "Blog", icon: FileText },
+  { to: "/admin/comments", label: "Comments", icon: MessageCircle },
   { to: "/admin/media", label: "Media", icon: ImageIcon },
   { to: "/admin/resumes", label: "Resumes", icon: User },
   { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },

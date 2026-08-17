@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Loader2, Plus, Save, Star, Trash2 } from "lucide-react";
+import { Loader2, Plus, Save, Star, Trash2, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,6 +41,8 @@ export const ContentEditor = () => {
   const [experiences, setExperiences] = useState<Row[]>([]);
   const [services, setServices] = useState<Row[]>([]);
   const [testimonials, setTestimonials] = useState<Row[]>([]);
+  const [importUrls, setImportUrls] = useState<Record<number, string>>({});
+  const [importing, setImporting] = useState<Record<number, boolean>>({});
   const [deletedIds, setDeletedIds] = useState<Record<string, string[]>>({
     projects: [], skills: [], experiences: [], services: [], testimonials: [],
   });
@@ -127,6 +129,42 @@ export const ContentEditor = () => {
 
   const remove = (table: keyof typeof deletedIds, id: string, isNew?: boolean) => {
     if (!isNew) setDeletedIds((d) => ({ ...d, [table]: [...d[table], id] }));
+  };
+
+  const importFromLink = async (index: number) => {
+    const url = (importUrls[index] ?? "").trim();
+    if (!/^https?:\/\/.+/i.test(url)) return toast.error("Enter a full URL starting with https://");
+    setImporting((s) => ({ ...s, [index]: true }));
+    try {
+      const { data, error } = await supabase.functions.invoke("scrape-project", { body: { url } });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const d = data as Record<string, any>;
+      setProjects((r) =>
+        r.map((x, ix) => {
+          if (ix !== index) return x;
+          const title = d.title || x.title;
+          return {
+            ...x,
+            title,
+            slug: x.slug || String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+            description: d.description || x.description,
+            long_description: d.longDescription || x.long_description,
+            category: d.category || x.category,
+            thumbnail: d.thumbnail || x.thumbnail,
+            gallery: (d.gallery ?? []).length ? d.gallery : x.gallery,
+            tech: (d.tech ?? []).length ? d.tech : x.tech,
+            tags: (d.tags ?? []).length ? d.tags : x.tags,
+            demo_url: d.demoUrl || url,
+          };
+        }),
+      );
+      toast.success("Details imported — review and save");
+    } catch (err: any) {
+      toast.error(err?.message ?? "Could not import that link");
+    } finally {
+      setImporting((s) => ({ ...s, [index]: false }));
+    }
   };
 
   if (loading) {
@@ -231,6 +269,20 @@ export const ContentEditor = () => {
           <div className="grid lg:grid-cols-2 gap-4">
             {projects.map((pr, i) => (
               <Card key={pr.id} onRemove={() => { remove("projects", pr.id, pr._new); setProjects((r) => r.filter((_, ix) => ix !== i)); }}>
+                <Field label="Import from live link">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="https://yourproject.com"
+                      value={importUrls[i] ?? ""}
+                      onChange={(e) => setImportUrls((s) => ({ ...s, [i]: e.target.value }))}
+                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); importFromLink(i); } }}
+                    />
+                    <Button type="button" variant="neon" size="sm" disabled={!!importing[i]} onClick={() => importFromLink(i)}>
+                      {importing[i] ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
+                      Import
+                    </Button>
+                  </div>
+                </Field>
                 <Field label="Title"><Input value={pr.title} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, title: e.target.value } : x))} /></Field>
                 <Field label="Slug"><Input value={pr.slug ?? ""} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, slug: e.target.value } : x))} /></Field>
                 <Field label="Short description"><Textarea rows={2} value={pr.description ?? ""} onChange={(e) => setProjects((r) => r.map((x, ix) => ix === i ? { ...x, description: e.target.value } : x))} /></Field>

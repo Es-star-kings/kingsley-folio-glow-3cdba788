@@ -6,6 +6,7 @@ import { Overview } from "@/components/admin/Overview";
 import { ContentEditor } from "@/components/admin/ContentEditor";
 import { Inbox } from "@/components/admin/Inbox";
 import { BlogManager } from "@/components/admin/BlogManager";
+import { CommentsModerator } from "@/components/admin/CommentsModerator";
 import { MediaLibrary } from "@/components/admin/MediaLibrary";
 import { ResumeManager } from "@/components/admin/ResumeManager";
 import { Analytics } from "@/components/admin/Analytics";
@@ -47,6 +48,7 @@ const Admin = () => {
         <Route path="content" element={<ContentEditor />} />
         <Route path="inbox" element={<Inbox />} />
         <Route path="blog" element={<BlogManager />} />
+        <Route path="comments" element={<CommentsModerator />} />
         <Route path="media" element={<MediaLibrary />} />
         <Route path="resumes" element={<ResumeManager />} />
         <Route path="analytics" element={<Analytics />} />
