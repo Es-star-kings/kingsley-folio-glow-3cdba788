@@ -41,6 +41,8 @@ export const ContentEditor = () => {
   const [experiences, setExperiences] = useState<Row[]>([]);
   const [services, setServices] = useState<Row[]>([]);
   const [testimonials, setTestimonials] = useState<Row[]>([]);
+  const [importUrls, setImportUrls] = useState<Record<number, string>>({});
+  const [importing, setImporting] = useState<Record<number, boolean>>({});
   const [deletedIds, setDeletedIds] = useState<Record<string, string[]>>({
     projects: [], skills: [], experiences: [], services: [], testimonials: [],
   });
@@ -127,6 +129,42 @@ export const ContentEditor = () => {
 
   const remove = (table: keyof typeof deletedIds, id: string, isNew?: boolean) => {
     if (!isNew) setDeletedIds((d) => ({ ...d, [table]: [...d[table], id] }));
+  };
+
+  const importFromLink = async (index: number) => {
+    const url = (importUrls[index] ?? "").trim();
+    if (!/^https?:\/\/.+/i.test(url)) return toast.error("Enter a full URL starting with https://");
+    setImporting((s) => ({ ...s, [index]: true }));
+    try {
+      const { data, error } = await supabase.functions.invoke("scrape-project", { body: { url } });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const d = data as Record<string, any>;
+      setProjects((r) =>
+        r.map((x, ix) => {
+          if (ix !== index) return x;
+          const title = d.title || x.title;
+          return {
+            ...x,
+            title,
+            slug: x.slug || String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+            description: d.description || x.description,
+            long_description: d.longDescription || x.long_description,
+            category: d.category || x.category,
+            thumbnail: d.thumbnail || x.thumbnail,
+            gallery: (d.gallery ?? []).length ? d.gallery : x.gallery,
+            tech: (d.tech ?? []).length ? d.tech : x.tech,
+            tags: (d.tags ?? []).length ? d.tags : x.tags,
+            demo_url: d.demoUrl || url,
+          };
+        }),
+      );
+      toast.success("Details imported — review and save");
+    } catch (err: any) {
+      toast.error(err?.message ?? "Could not import that link");
+    } finally {
+      setImporting((s) => ({ ...s, [index]: false }));
+    }
   };
 
   if (loading) {
