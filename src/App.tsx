@@ -9,6 +9,7 @@ import { trackPageView } from "@/lib/track";
 import Index from "./pages/Index.tsx";
 import Blog from "./pages/Blog.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
+import ProjectDetail from "./pages/ProjectDetail.tsx";
 import Admin from "./pages/Admin.tsx";
 import Auth from "./pages/Auth.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/auth" element={<Auth />} />
 
             <Route path="/reset-password" element={<ResetPassword />} />
