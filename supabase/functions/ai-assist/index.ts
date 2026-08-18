@@ -39,7 +39,7 @@ Deno.serve(async (req) => {
       method: "POST",
       headers: { "Content-Type": "application/json", "Lovable-API-Key": key },
       body: JSON.stringify({
-        model: mode === "blog" ? "google/gemini-2.5-pro" : "google/gemini-2.5-flash",
+        model: mode === "blog" ? "google/gemini-3-flash-preview" : "google/gemini-3-flash-preview",
         ...(mode === "blog" ? { response_format: { type: "json_object" } } : {}),
         messages: [
           {
