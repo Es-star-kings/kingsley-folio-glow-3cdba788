@@ -25,6 +25,7 @@ export type Skill = { name: string; level: number; category: string };
 
 export type Project = {
   title: string;
+  slug?: string;
   description: string;
   image: string;
   tech: string[];
