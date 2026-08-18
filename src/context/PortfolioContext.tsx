@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import { defaultPortfolio, PortfolioData } from "@/data/portfolio";
 import { supabase } from "@/integrations/supabase/client";
+import { slugify } from "@/lib/slug";
 
 type Ctx = PortfolioData & {
   loading: boolean;
@@ -44,6 +45,7 @@ export const PortfolioProvider = ({ children }: { children: ReactNode }) => {
 
       const projects = (projectsRes.data ?? []).map((p) => ({
         title: p.title,
+        slug: p.slug || slugify(p.title),
         description: p.description ?? "",
         image: p.thumbnail ?? "",
         tech: p.tech ?? [],

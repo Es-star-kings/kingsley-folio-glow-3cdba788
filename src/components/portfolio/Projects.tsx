@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Github, Star } from "lucide-react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { SectionHeading } from "./SectionHeading";
 import { Button } from "@/components/ui/button";
+import { slugify } from "@/lib/slug";
 import { cn } from "@/lib/utils";
 
 export const Projects = () => {
@@ -66,7 +68,7 @@ export const Projects = () => {
                   p.featured && "md:col-span-2"
                 )}
               >
-                <div className="relative aspect-video overflow-hidden">
+                <Link to={`/projects/${p.slug ?? slugify(p.title)}`} className="block relative aspect-video overflow-hidden">
                   <img
                     src={p.image}
                     alt={p.title}
@@ -81,10 +83,14 @@ export const Projects = () => {
                       <Star className="h-3 w-3 text-primary fill-primary" /> Featured
                     </div>
                   )}
-                </div>
+                </Link>
                 <div className="p-6 sm:p-8 space-y-4">
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-2xl font-bold">{p.title}</h3>
+                    <h3 className="font-display text-2xl font-bold">
+                      <Link to={`/projects/${p.slug ?? slugify(p.title)}`} className="hover:text-primary transition-colors">
+                        {p.title}
+                      </Link>
+                    </h3>
                     <div className="flex gap-2">
                       <a
                         href={p.github}
@@ -109,6 +115,13 @@ export const Projects = () => {
                         {t}
                       </span>
                     ))}
+                  </div>
+                  <div className="pt-2">
+                    <Button asChild variant="outline" size="sm">
+                      <Link to={`/projects/${p.slug ?? slugify(p.title)}`}>
+                        View case study <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </motion.article>
